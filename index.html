@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet"
+        href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+    <link rel="stylesheet" href="src/css/style.min.css">
+
+    <link rel="stylesheet"
+        href="https://rawgit.com/jtblin/angular-chart.js/a0b1ce650d5dce9b7ccdd86843d83f27b0d7bc03/dist/angular-chart.css">
+
+    <title>India Covid Graph</title>
+
+
+</head>
+
+<body ng-app="ptcApp">
+
+
+    <div ng-controller="LoadingCtrl">
+        <div ng-show="loading" class="loading">Loading&#8230;</div>
+    </div>
+    <div ng-controller="listofStateCtrl">
+        <div class="wrapper">
+            <header class="main-head">India Covid Graph</header>
+            <aside class="side">
+                <div class="selectage">
+                    <md-input-container class="md-block">
+                        <label>Search</label>
+                        <input md-maxlength="30" name="description" ng-model="query">
+                        <div ng-messages="projectForm.description.$error">
+                        </div>
+                    </md-input-container>
+                    <md-select ng-model="typeToDisplay" ng-change="filter()">
+                        <md-option ng-value="element" ng-repeat="element in selectValue">{{ element}}</md-option>
+                    </md-select>
+                    <div ng-controller="datePicker" layout layout-margin>
+                        <md-button class="md-primary md-raised" ng-click="selectDateRange()">Select Date
+                        </md-button>
+                    </div>
+                </div>
+                <div class="containerState">
+                    <div ng-repeat="state in states| filter:{state:query}" class="state">
+                        <md-checkbox ng-model="state.selected" aria-label="{{state.selected}}" ng-change="filter()">
+                            {{state.state}}
+                        </md-checkbox>
+                    </div>
+                </div>
+            </aside>
+            <article class="content">
+                <div class="chartjs-size-monitor">
+                    <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                    </div>
+                    <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                    </div>
+                </div>
+
+                <canvas id="canvas" style="display: block; " class="chartjs-render-monitor"></canvas>
+            </article>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+    <script src="src/js/md-date-range-picker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+        integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdn2.hubspot.net/hubfs/476360/Chart.js"></script>
+    <script src="https://cdn2.hubspot.net/hubfs/476360/utils.js"></script>
+
+    
+    <script src="src/js/app.js"></script>
+</body>
+
+</html>
